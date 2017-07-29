@@ -40,8 +40,7 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
             if ($role->roleid == $rolecomplete) {
                 if ($user->pref != 1) {// We don't want the complete interface, thus we unassign the role.
                     $result = role_unassign($rolecomplete, $user->id, $contextcourse->id);
-                }
-                else {
+                } else {
                     break;// The role for complete interface exists and we want it. Thus we do nothing.
                 }
             }
@@ -58,13 +57,13 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
  * Add a user preference to choose complete interface or not
  */
 function local_expertrole_extend_navigation_user_settings($navigation, $user) {
-    global $USER,$PAGE;
+    global $USER, $PAGE;
 
     // Don't bother doing needless calculations unless we are on the relevant pages and if no capacity to create courses.
     $onpreferencepage = $PAGE->url->compare(new moodle_url('/user/preferences.php'), URL_MATCH_BASE);
     $onexpertpage = $PAGE->url->compare(new moodle_url('/local/expertrole/pref.php'), URL_MATCH_BASE);
     $systemcontext = context_system::instance();
-    if (!has_capability('moodle/course:create', $systemcontext,$USER->id)) {
+    if (!has_capability('moodle/course:create', $systemcontext, $USER->id)) {
         return null;
     }
     if (!$onpreferencepage && !$onexpertpage) {
@@ -75,7 +74,6 @@ function local_expertrole_extend_navigation_user_settings($navigation, $user) {
     if (get_config('local_expertrole', 'rolecomplete') && $USER->id == $user->id) {
         // Now let's check to see if the user has any courses / site rules that they can subscribe to.
         // We skip doing a check here if we are on the event monitor page as the check is done internally on that page.
-        
         $url = new moodle_url('/local/expertrole/pref.php');
         $subsnode = navigation_node::create(get_string('interface', 'local_expertrole'), $url,
                 navigation_node::TYPE_SETTING, null, 'interface', new pix_icon('i/settings', ''));
