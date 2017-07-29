@@ -51,7 +51,7 @@ class interface_updated extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('eventinterfaceupdated','local_expertrole');
+        return get_string('eventinterfaceupdated', 'local_expertrole');
     }
 
     /**
@@ -71,8 +71,6 @@ class interface_updated extends \core\event\base {
     public function get_url() {
         return new \moodle_url('/user/view.php', array('id' => $this->objectid));
     }
-
-    
 
     /**
      * Custom validation.

@@ -1,5 +1,5 @@
 <?php
-/// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,10 +38,10 @@ class local_expertrole_observer {
      * @return void
      */
     public static function course_created(\core\event\course_created $event) {
-        global $USER,$DB;
+        global $DB;
 
-        $context_id = $event->contextid;
-        $context = context::instance_by_id($context_id, MUST_EXIST);
+        $contextid = $event->contextid;
+        $context = context::instance_by_id($contextid, MUST_EXIST);
 
         if ($context->contextlevel != CONTEXT_COURSE) {
             return;
@@ -49,26 +49,25 @@ class local_expertrole_observer {
         $config = get_config('local_expertrole');
 
         if (has_capability('moodle/course:create', $context) && isset($config->rolesimple) && isset($config->rolecomplete)) {
-            $rolesimple = $config->rolesimple;
             $rolecomplete = $config->rolecomplete;
             $user = $DB->get_record('user', array('id' => $event->userid));
             $usernew = get_user_interface_preference($user);
 
-            // If role is the one identified in plugin parameters and if user enabled the complete interface.
-            if ($usernew->pref == 1){
-            role_assign($rolecomplete, $event->userid, $context->id);
+            // If user enabled the complete interface.
+            if ($usernew->pref == 1) {
+                role_assign($rolecomplete, $event->userid, $context->id);
             }
         }
     }
 
-    public static function interface_updated(local_expertrole\event\interface_updated $event){
+    public static function interface_updated(local_expertrole\event\interface_updated $event) {
 
-        global $PAGE,$DB;
+        global $PAGE, $DB;
         $config = get_config('local_expertrole');
         $userid = $event->relateduserid;
         $context = $PAGE->context;
         // If user has course:create capacity and plugin expertrole is enabled, we assign the complete role.
-        if (has_capability('moodle/course:create', $context, $userid) && isset($config->rolesimple) && isset($config->rolecomplete)) {
+        if (has_capability('moodle/course:create', $context, $userid) && isset($config->rolecomplete)) {
             $rolesimple = $config->rolesimple;
             $rolecomplete = $config->rolecomplete;
             // Get user courses.
@@ -76,7 +75,7 @@ class local_expertrole_observer {
             $user = $DB->get_record('user', array('id' => $userid));
             // Get user preferences for the interface.
             $usernew = get_user_interface_preference($user);
-            // We assign the "complete" role in courses where the user has the "simple" role (editing teacher mostly). 
+            // We assign the "complete" role in courses where the user has the "simple" role (editing teacher mostly).
             expert_role_assign($courses, $usernew, $rolesimple, $rolecomplete);
         }
     }

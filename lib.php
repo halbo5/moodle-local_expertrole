@@ -25,25 +25,27 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- *This function assigns / unassigns the complete role (with complete interface) to users that have a simple role (editingteacher mostly but without some addinstance capacities). If 'interface' preference is 1 it assigns, if not it unassigns.
+ * This function assigns / unassigns the complete role (with complete interface) to users that have a simple role
+ * (editingteacher mostly but without some addinstance capacities).
+ * If 'interface' preference is 1 it assigns, if not it unassigns.
  *
  */
 
 function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
-    foreach ($courses as $course){
+    foreach ($courses as $course) {
         $result = '';
         $contextcourse = context::instance_by_id($course->ctxid, MUST_EXIST);
         $roles = get_user_roles($contextcourse, $user->id);
-        foreach ($roles as $role){
+        foreach ($roles as $role) {
             if ($role->roleid == $rolecomplete) {
-                if ($user->pref != 1){// We don't want the complete interface, thus we unassign the role.
+                if ($user->pref != 1) {// We don't want the complete interface, thus we unassign the role.
                     $result = role_unassign($rolecomplete, $user->id, $contextcourse->id);
                 }
                 else {
                     break;// The role for complete interface exists and we want it. Thus we do nothing.
                 }
             }
-            if ($role->roleid == $rolesimple && $user->pref == 1){
+            if ($role->roleid == $rolesimple && $user->pref == 1) {
                 $result = role_assign($rolecomplete, $user->id, $contextcourse->id);
                 break;
             }
@@ -54,8 +56,8 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
 
 /**
 /* Add a user preference to choose complete interface or not
-**/
-function local_expertrole_extend_navigation_user_settings($navigation, $user, $usercontext, $course, $coursecontext) {
+*/
+function local_expertrole_extend_navigation_user_settings($navigation, $user) {
     global $USER,$PAGE;
 
     // Don't bother doing needless calculations unless we are on the relevant pages and if no capacity to create courses.

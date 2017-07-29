@@ -37,13 +37,13 @@ if ($hassiteconfig) {
         $page->add(new admin_setting_heading('local_expertrole/completeinterface',
                 get_string('setting_completeinterface', 'local_expertrole', null, true),
                 ''));
-       // Choose role with simple interface.
+        // Choose role with simple interface.
         $defineurl = $CFG->wwwroot . '/' . $CFG->admin . '/roles/define.php';
         $systemcontext = context_system::instance();
         $roles = role_fix_names(get_all_roles(), $systemcontext, ROLENAME_ORIGINAL);
         $name = 'local_expertrole/rolesimple';
-        $title = get_string('setting_rolesimple','local_expertrole');
-        $description = get_string('setting_rolesimple_desc','local_expertrole');
+        $title = get_string('setting_rolesimple', 'local_expertrole');
+        $description = get_string('setting_rolesimple_desc', 'local_expertrole');
         $default = 3;
         $choices = [];
 
@@ -60,7 +60,7 @@ if ($hassiteconfig) {
         $description = get_string('setting_rolecomplete_desc', 'local_expertrole');
         $default = 'default';
         $choices = [];
-        $choices['default'] = get_string('chooserole','local_expertrole');
+        $choices['default'] = get_string('chooserole', 'local_expertrole');
         foreach ($roles as $role) {
             $choices[$role->id] = $role->localname;
         }
