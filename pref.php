@@ -54,7 +54,11 @@ if ($courseform->is_cancelled()) {
 $strpref = get_string('interface', 'local_expertrole');
 $userfullname = fullname($user, true);
 
-$PAGE->navbar->includesettingsbase = true;
+// Display breadcrumb.
+$PAGE->navbar->ignore_active();
+$url = new moodle_url('/user/preferences.php', array('userid' => $userid));
+$navbar = $PAGE->navbar->add(get_string('preferences', 'moodle'), $url);
+$PAGE->navbar->add($strpref, new moodle_url('/local/expertrole/pref.php', array('userid' => $userid)));
 
 $PAGE->set_title("$course->shortname: $strpref");
 $PAGE->set_heading($userfullname);
