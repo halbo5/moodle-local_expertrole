@@ -43,7 +43,7 @@ Site administration -> Users -> Expert Role.
 
 There, you find only one section:
 
-_Interface choice_
+__Interface choice__
 
 You have two settings : select a role for the simple interface and a role for the complete interface.
 
