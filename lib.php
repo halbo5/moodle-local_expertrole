@@ -50,13 +50,13 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
                 break;
             }
         }
-    } 
+    }
     return $result;
 }
 
 /**
-/* Add a user preference to choose complete interface or not
-*/
+ * Add a user preference to choose complete interface or not
+ */
 function local_expertrole_extend_navigation_user_settings($navigation, $user) {
     global $USER,$PAGE;
 
@@ -87,8 +87,8 @@ function local_expertrole_extend_navigation_user_settings($navigation, $user) {
 }
 
 /**
-* Validating the new preference
-**/
+ * Validating the new preference
+ */
 
 function local_expertrole_user_preferences() {
     $preferences = array();
@@ -96,14 +96,14 @@ function local_expertrole_user_preferences() {
         'type' => PARAM_INT,
         'null' => NULL_NOT_ALLOWED,
         'default' => 0,
-        'choices' => array(0,1)
+        'choices' => array(0, 1)
     );
     return $preferences;
 }
 
 function get_user_interface_preference($user) {
-    //We look for the interface preference and add it to the user object
-    $pref=get_user_preferences('completeinterface', false, $user->id);
-    $user->pref=$pref;
+    // We look for the interface preference and add it to the user object.
+    $pref = get_user_preferences('completeinterface', false, $user->id);
+    $user->pref = $pref;
     return $user;
 }
