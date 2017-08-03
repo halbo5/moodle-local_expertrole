@@ -35,3 +35,4 @@ $string['interface'] = "Choose interface";
 $string['enablecompleteinterface'] = 'Enable complete interface';
 $string['configenablecompleteinterface'] = 'By default, you have a limited interface (no much choice for activities), but easier to use. You can activate the complete interface with all functionalities, but moodle will be more complex.';
 $string['eventinterfaceupdated'] = "Interface updated";
+$string['interfacetitle'] = 'Expert role';

@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 // List of observers.
 $observers = array(
     array(
-        'eventname' => '\core\event\course_created',
-        'callback' => 'local_expertrole_observer::course_created'
+        'eventname' => '\core\event\role_assigned',
+        'callback' => 'local_expertrole_observer::role_assigned'
     ),
     array(
         'eventname' => '\local_expertrole\event\interface_updated',

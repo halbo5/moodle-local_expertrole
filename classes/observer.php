@@ -37,7 +37,7 @@ class local_expertrole_observer {
      * @param \core\event\role_assigned $event
      * @return void
      */
-    public static function course_created(\core\event\course_created $event) {
+    public static function role_assigned(\core\event\role_assigned $event) {
         global $DB;
 
         $contextid = $event->contextid;
@@ -50,12 +50,15 @@ class local_expertrole_observer {
 
         if (has_capability('moodle/course:create', $context) && isset($config->rolesimple) && isset($config->rolecomplete)) {
             $rolecomplete = $config->rolecomplete;
-            $user = $DB->get_record('user', array('id' => $event->userid));
+            $rolesimple = $config->rolesimple;
+            $user = $DB->get_record('user', array('id' => $event->relateduserid));
             $usernew = get_user_interface_preference($user);
 
             // If user enabled the complete interface.
             if ($usernew->pref == 1) {
-                role_assign($rolecomplete, $event->userid, $context->id);
+                $role_assigned = role_assign($rolecomplete, $event->relateduserid, $context->id);
+                role_unassign($rolesimple, $event->relateduserid, $context->id);
+                //var_dump($role_assigned);exit;
             }
         }
     }

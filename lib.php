@@ -39,6 +39,7 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
         foreach ($roles as $role) {
             if ($role->roleid == $rolecomplete) {
                 if ($user->pref != 1) {// We don't want the complete interface, thus we unassign the role.
+                    $result_unassign = role_assign($rolesimple, $user->id, $contextcourse->id);
                     $result = role_unassign($rolecomplete, $user->id, $contextcourse->id);
                 } else {
                     break;// The role for complete interface exists and we want it. Thus we do nothing.
@@ -46,6 +47,7 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
             }
             if ($role->roleid == $rolesimple && $user->pref == 1) {
                 $result = role_assign($rolecomplete, $user->id, $contextcourse->id);
+                $result_unassign = role_unassign($rolesimple, $user->id, $contextcourse->id);
                 break;
             }
         }
@@ -74,12 +76,20 @@ function local_expertrole_extend_navigation_user_settings($navigation, $user) {
     if (get_config('local_expertrole', 'rolecomplete') && $USER->id == $user->id) {
         // Now let's check to see if the user has any courses / site rules that they can subscribe to.
         // We skip doing a check here if we are on the event monitor page as the check is done internally on that page.
+        $node = navigation_node::create(get_string('interfacetitle', 'local_expertrole'), null,
+                navigation_node::TYPE_CONTAINER, null, 'interfacetitle');
+
+        if (isset($node) && !empty($navigation)) {
+            $navigation->add_node($node);
+        }
+
+
         $url = new moodle_url('/local/expertrole/pref.php');
         $subsnode = navigation_node::create(get_string('interface', 'local_expertrole'), $url,
                 navigation_node::TYPE_SETTING, null, 'interface', new pix_icon('i/settings', ''));
 
         if (isset($subsnode) && !empty($navigation)) {
-            $navigation->add_node($subsnode);
+            $node->add_node($subsnode);
         }
     }
 }

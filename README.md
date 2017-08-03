@@ -17,7 +17,7 @@ Motivation for this plugin
 
 This plugin is used in a global project to simplify moodle. Basicly, we have two types of users : teacher that have a very basic use of moodle and geeks that want to test most of moodle functionalities.
 
-By default, when a user creates a course, he has the "editing teacher" role. We removed some capacities for this role to make use of moodle more simple (less activities available). We created a second role : the expert role. This role has all teacher's capacities. In his preferences, the user can choose if he wants this expert role. If yes, each time he creates a course, the two roles will be added to the user and he will have the complete functionnalities.
+By default, when a user creates a course, he has the "editing teacher" role. This is the "complete" role. We created a second role and removed some capacities for this role to make use of moodle more simple (less activities available). This is the "simple" role. We affected this new role for the default role when creating a course. In his preferences, the user can choose if he wants this simple or the complete role. If yes, each time he creates a course, the simple role will be removed and the complete added to the user and he will have the complete functionnalities.
 
 With this plugin, the user can choose if he wants a simple or a complete interface.
 
@@ -49,11 +49,7 @@ You have two settings : select a role for the simple interface and a role for th
 
 ### 2. Strategy
 
-There are different strategies.
-
-By default, when you create a course, the editing teacher role is automatically added for the user who creates the course. You could modifiy this role, and remove some capacities. For example, search for "addinstance" capacities and deselect all blocks and activities that you don't want to show to a "basic" user. Then create a seconde role, for example "complete interface" and activate all you deselected previously.
-
-Another strategy is to not modify the editing teacher role and create a "simple role". Then change the default role when a course is created and assign the "simple role". The plugin will add the editing teacher role if the user chooses it.
+Our strategy was to not modify the editing teacher role.  We created a "simple role". Then change the default role when a course is created and assign the "simple role". The plugin will add the editing teacher role and remove the simple role if the user chooses it.
 
 ### 3. User preference
 
@@ -65,7 +61,7 @@ This setting his only visible for users that have the course:create capacity in 
 How this plugin works
 ---------------------
 
-This plugin listens to moodle's events : "course created" and "interface updated". It adds the "complete role" when a course is created or in all the user's courses when he changes the "interface" preference.
+This plugin listens to moodle's events : "role assigned" and "interface updated". It adds the "complete role" when a course is created or in all the user's courses when he changes the "interface" preference.
 
 
 Plugin repositories

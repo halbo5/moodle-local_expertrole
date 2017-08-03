@@ -35,3 +35,4 @@ $string['interface'] = "Choix de l'interface";
 $string['enablecompleteinterface'] = 'Activer l\'interface complète';
 $string['configenablecompleteinterface'] = "Par défaut, votre interface est limitée pour rendre l'usage de Moodle plus simple (mois d'activités disponibles). Vous pouvez activer l'interface complète avec toutes les activités, mais Moodle sera un peu plus complexe à utiliser.";
 $string['eventinterfaceupdated'] = "Interface modifiée";
+$string['interfacetitle'] = 'Rôle expert';

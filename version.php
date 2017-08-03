@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_expertrole';
-$plugin->version = 2017072710;
+$plugin->version = 2017072711;
 $plugin->release = 'v0.1';
 $plugin->requires = 2016120500;
 $plugin->maturity = MATURITY_STABLE;
