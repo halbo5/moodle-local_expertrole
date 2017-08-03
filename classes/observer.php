@@ -54,11 +54,9 @@ class local_expertrole_observer {
             $user = $DB->get_record('user', array('id' => $event->relateduserid));
             $usernew = get_user_interface_preference($user);
 
-            // If user enabled the complete interface.
             if ($usernew->pref == 1) {
-                $role_assigned = role_assign($rolecomplete, $event->relateduserid, $context->id);
+                role_assign($rolecomplete, $event->relateduserid, $context->id);
                 role_unassign($rolesimple, $event->relateduserid, $context->id);
-                //var_dump($role_assigned);exit;
             }
         }
     }
