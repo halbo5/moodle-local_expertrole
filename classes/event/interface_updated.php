@@ -102,7 +102,7 @@ class interface_updated extends \core\event\base {
             'context' => \context_user::instance($userid)
         );
 
-        // Create user_updated event.
+        // Create interface_updated event.
         $event = self::create($data);
         return $event;
     }

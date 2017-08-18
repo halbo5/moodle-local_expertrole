@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_expertrole';
-$plugin->version = 2017072714;
-$plugin->release = 'v0.1';
-$plugin->requires = 2016120500;
-$plugin->maturity = MATURITY_STABLE;
+function xmldb_local_expertrole_uninstall() {
+
+    global $DB;
+    $DB->delete_records_select('user_preferences', 'name = \'completeinterface\'');
+}

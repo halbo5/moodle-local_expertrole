@@ -24,8 +24,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_expertrole';
-$plugin->version = 2017072714;
-$plugin->release = 'v0.1';
-$plugin->requires = 2016120500;
-$plugin->maturity = MATURITY_STABLE;
+$pluginconfig = new StdClass();
+// Shall we search for "advanced" teachers and change preference for them ?
+// If 0 => do nothing.
+$pluginconfig->updatepreference = 1;
+// Activity to search to decide if teacher is "advanced".
+$pluginconfig->activities = array('choice', 'data', 'glossary', 'lesson', 'scorm', 'workshop', 'hotpot', 'choicegroup', 'attendance');
+// Roleid for the course creators. In a default install it is 2.
+$pluginconfig->roleid = 14;

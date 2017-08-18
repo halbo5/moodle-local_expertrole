@@ -24,8 +24,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_expertrole';
-$plugin->version = 2017072714;
-$plugin->release = 'v0.1';
-$plugin->requires = 2016120500;
-$plugin->maturity = MATURITY_STABLE;
+$tasks = array(
+    array(
+        'classname' => 'local_expertrole\task\assign_role',
+        'blocking' => 0,
+        'minute' => '0',
+        'hour' => '0',
+        'day' => '0',
+        'dayofweek' => '0',
+        'month' => '0'
+    ),
+    array(
+        'classname' => 'local_expertrole\task\assign_completerole',
+        'blocking' => 0,
+        'minute' => '0',
+        'hour' => '0',
+        'day' => '0',
+        'dayofweek' => '0',
+        'month' => '0'
+    )
+);

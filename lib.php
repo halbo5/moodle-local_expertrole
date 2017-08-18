@@ -36,6 +36,10 @@ function expert_role_assign($courses, $user, $rolesimple, $rolecomplete) {
         $result = '';
         $contextcourse = context::instance_by_id($course->ctxid, MUST_EXIST);
         $roles = get_user_roles($contextcourse, $user->id);
+        $config = get_config('local_expertrole');
+        if ($config->updateall == 1) {
+            $user->pref = 1;
+        }
         foreach ($roles as $role) {
             if ($role->roleid == $rolecomplete) {
                 if ($user->pref != 1) {// We don't want the complete interface, thus we unassign the role.

@@ -44,13 +44,12 @@ if ($hassiteconfig) {
         $name = 'local_expertrole/rolesimple';
         $title = get_string('setting_rolesimple', 'local_expertrole');
         $description = get_string('setting_rolesimple_desc', 'local_expertrole');
-        $default = 3;
+        $default = 'default';
         $choices = [];
-
+        $choices['default'] = get_string('chooserole', 'local_expertrole');
         foreach ($roles as $role) {
             $choices[$role->id] = $role->localname;
         }
-
         $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
         $page->add($setting);
 
@@ -58,14 +57,31 @@ if ($hassiteconfig) {
         $name = 'local_expertrole/rolecomplete';
         $title = get_string('setting_rolecomplete', 'local_expertrole');
         $description = get_string('setting_rolecomplete_desc', 'local_expertrole');
-        $default = 'default';
+        $default = 3;
         $choices = [];
-        $choices['default'] = get_string('chooserole', 'local_expertrole');
         foreach ($roles as $role) {
             $choices[$role->id] = $role->localname;
         }
-
         $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+        $page->add($setting);
+
+        // Choose course creator role.
+        $name = 'local_expertrole/coursecreator';
+        $title = get_string('setting_coursecreator', 'local_expertrole');
+        $description = get_string('setting_coursecreator_desc', 'local_expertrole');
+        $default = 2;
+        $choices = [];
+        foreach ($roles as $role) {
+            $choices[$role->id] = $role->localname;
+        }
+        $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+        $page->add($setting);
+
+        // Assign complete role to all course creators.
+        $name = 'local_expertrole/updateall';
+        $title = get_string('setting_updateall', 'local_expertrole');
+        $description = get_string('setting_updateall_desc', 'local_expertrole');
+        $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
         $page->add($setting);
     }
 

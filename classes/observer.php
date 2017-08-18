@@ -68,7 +68,7 @@ class local_expertrole_observer {
         $userid = $event->relateduserid;
         $context = $PAGE->context;
         // If user has course:create capacity and plugin expertrole is enabled, we assign the complete role.
-        if (has_capability('moodle/course:create', $context, $userid) && isset($config->rolecomplete)) {
+        if (has_capability('moodle/course:create', $context, $userid) && isset($config->rolesimple)) {
             $rolesimple = $config->rolesimple;
             $rolecomplete = $config->rolecomplete;
             // Get user courses.

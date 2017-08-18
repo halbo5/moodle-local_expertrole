@@ -25,10 +25,36 @@ With this plugin, the user can choose if he wants a simple or a complete interfa
 Installation
 ------------
 
+_Important_ : there are some more things to do than usual ;-)
+
+Prerequities : you need 2 teachers role. The standart editingteacher role (complete role) and a "simple teacher role". You can create it with the editingteacher model and deactivate some capacities.
+You have also to change the default role when a course is created (creatornewroleid): replace the editingteacher by your newly created simple role (Site administration > Users > Permissions > User policies).
+
+Unzip the plugin and modify pluginconfig.php. This file is used only during first installation to attribute the complete interface preference to "advanced" users, so it is not important if your modifications are overrided during next update.
+
+You have to configure some values according to your needs :
+$pluginconfig->updatepreference = 1 : significates that you will add the preference for complete interface for advanced users (users can of course change this in their preferences) . If you prefer let all users choose what interface they want, put 0 here.
+
+$pluginconfig->activities is an array with "advanced" features. You can choose here what you considere an "advanced" feature. If the script detects one of these activity in a teachers course, he attributes the "complete" interface to the user.
+
+$pluginconfig->roleid = 2 : this is the course creators system role. By default it is 2. But you have perhaps a customized role for your institution. Change it here. When searching for users to give the complete interface, the plugin searches only for users that have this system role.
+
+Ok, let's go know :-). If you want to install the plugin through moodle's interface, zip it again.
+
 Install the plugin like any other plugin to folder
 /local/expertrole
 
 See http://docs.moodle.org/en/Installing_plugins for details on installing Moodle plugins
+
+Once installed, you have to configure the plugin and launch a task. See below ...
+
+Uninstalling
+-------------
+Before uninstalling the plugin, you should assign the complete role to all course creators.
+To do that, go to the admin settings (Site administration > Users > Expert Role) and select the checkbox (updateall).
+Then go to the task admin page and launch the task assign_completerole. This task will assign the complete role to all course creators (only if you selected the checkbox in the plugins admin settings).
+
+Then you can uninstall the plugin as usually. This will remove all preferences from the user_preferences table.
 
 
 Usage & Settings
@@ -45,17 +71,27 @@ There, you find only one section:
 
 __Interface choice__
 
-You have two settings : select a role for the simple interface and a role for the complete interface.
+You have four settings : select a role for the simple interface, a role for the complete interface and the course creator role.
+This third one is only used by tasks that bulk update all teachers with this role.
+The last one can be used if you want to uninstall the plugin. Activate this setting to assign the complete role to all course creators, without checking their preferences.
 
-### 2. Strategy
+### 2. Tasks
 
-Our strategy was to not modify the editing teacher role.  We created a "simple role". Then change the default role when a course is created and assign the "simple role". The plugin will add the editing teacher role and remove the simple role if the user chooses it.
+_Attention_ There are two tasks that are activated by default. You should desactivate them and only launch them manually when necessary.
+
+Task assign_role : to be used one time after plugins installation. It searches for users with course creating role and assigns the simple role in each of their courses if they have the simple interface in their preferences. If you want to know which users has been updated, search for the "interface updated" event in the logs.
+
+Task assign_completerole : it's very important to desactivate this task. It should be used if you decide to uninstall the plugin. Before uninstalling, you can assign the complete role to all teachers with this task.
+
+### 3. Strategy
+
+Our strategy was to not modify the editing teacher role.  We created a "simple role". Then change the default role when a course is created and replace the editingteacher role by the "simple role". The plugin will then add the editing teacher role and remove the simple role only to users that choose it in their preferences.
 
 ### 3. User preference
 
 In his preferences, the user has a new choice : complete interface. If he wants all the teacher's functionnalities, he has to select this setting.
 
-This setting his only visible for users that have the course:create capacity in the system context.
+This setting his only visible for users that have the course:create capability in the system context.
 
 
 How this plugin works
