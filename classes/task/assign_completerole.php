@@ -28,19 +28,18 @@ defined('MOODLE_INTERNAL') || die();
 
 class assign_completerole extends \core\task\scheduled_task {
     public function get_name() {
-        // Shown in admin screens
+        // Shown in admin screens.
         return get_string('taskassigncompleterole', 'local_expertrole');
     }
 
     public function execute() {
-        global $DB, $CFG;
         $context = \context_system::instance();
         $config = \get_config('local_expertrole');
         $roleid = $config->coursecreator;
         $usersid = \get_role_users($roleid, $context, false, 'u.id', 'u.id', true);
         foreach ($usersid as $user) {
             $userid = $user->id;
-            //Trigger interface updated event.
+            // Trigger interface updated event.
             \local_expertrole\event\interface_updated::create_from_userid($userid)->trigger();
         }
     }

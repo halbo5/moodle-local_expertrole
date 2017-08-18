@@ -26,13 +26,13 @@ defined('MOODLE_INTERNAL') || die();
 
 function xmldb_local_expertrole_install() {
 
-    global $CFG,$DB;
+    global $CFG, $DB;
     require_once($CFG->dirroot.'/local/expertrole/pluginconfig.php');
     if ($pluginconfig->updatepreference == 1) {
 
         $roleid = $pluginconfig->roleid;
         $context = context_system::instance();
-        $usersid = get_role_users($roleid, $context, false, 'u.id', $sort = 'u.id', true);
+        $usersid = get_role_users($roleid, $context, false, 'u.id', 'u.id', true);
         foreach ($usersid as $user) {
             $userid = $user->id;
             $courses = enrol_get_all_users_courses($userid, false, 'id', 'visible DESC,sortorder ASC');
@@ -57,7 +57,7 @@ function xmldb_local_expertrole_install() {
                         $pref = $DB->get_record($table, array('userid' => $userid, 'name' => 'completeinterface'));
 
                         if (!$pref) {
-                            $insertid = $DB->insert_record($table, $record, $returnid = true, $bulk = false);
+                            $DB->insert_record($table, $record, true, false);
                             break;
                         }
                     }

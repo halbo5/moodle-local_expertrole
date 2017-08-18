@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class assign_role extends \core\task\scheduled_task {
     public function get_name() {
-        // Shown in admin screens
+        // Shown in admin screens.
         return get_string('taskassignrole', 'local_expertrole');
     }
 
@@ -45,7 +45,7 @@ class assign_role extends \core\task\scheduled_task {
             require_once($CFG->dirroot.'/local/expertrole/lib.php');
             $usernew = get_user_interface_preference($user);
             if ($usernew->pref != 1) {
-                //Trigger interface updated event.
+                // Trigger interface updated event.
                 \local_expertrole\event\interface_updated::create_from_userid($userid)->trigger();
             }
         }

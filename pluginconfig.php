@@ -29,6 +29,7 @@ $pluginconfig = new StdClass();
 // If 0 => do nothing.
 $pluginconfig->updatepreference = 1;
 // Activity to search to decide if teacher is "advanced".
-$pluginconfig->activities = array('choice', 'data', 'glossary', 'lesson', 'scorm', 'workshop', 'hotpot', 'choicegroup', 'attendance');
+$pluginconfig->activities = array('choice', 'data', 'glossary', 'lesson', 'scorm', 'workshop', 'hotpot', 'choicegroup',
+    'attendance');
 // Roleid for the course creators. In a default install it is 2.
 $pluginconfig->roleid = 14;
